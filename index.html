@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>42 BLOCK - Nacidos del Olvido</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-3d-bg"></div>
+        <div class="hero-content">
+            <h1 class="band-name-3d">42 BLOCK</h1>
+            <p class="tagline-3d">Nacidos del Olvido</p>
+            <div class="hero-subtitle-3d">El edificio marcado con el número 42 era el centro del barrio</div>
+        </div>
+        <div class="scroll-indicator-3d">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Barrio Section -->
+    <section class="neighborhood" id="neighborhood">
+        <div class="container-3d">
+            <h2 class="section-title-3d">El Barrio</h2>
+            <div class="neighborhood-content-3d" id="neighborhood-content">
+                <div class="neighborhood-card-3d neighborhood-image-card">
+                    <h3 class="neighborhood-title">Ubicación</h3>
+                    <div class="neighborhood-image-wrapper">
+                        <img src="image.png" alt="Vista del barrio 42 BLOCK" class="neighborhood-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div style="display:none; padding: 40px; text-align: center; color: var(--text-gray);">Imagen no encontrada. Verifica que el archivo 'image.png' esté en la carpeta.</div>
+                    </div>
+                    <p class="neighborhood-text" id="neighborhood-location">[Ubicación del barrio]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rangos Section -->
+    <section class="ranks" id="ranks">
+        <div class="container-3d">
+            <h2 class="section-title-3d">Rangos</h2>
+            <div class="ranks-grid-3d" id="ranks-grid">
+                <!-- Los rangos se agregarán dinámicamente -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Historia Section -->
+    <section class="history" id="history">
+        <div class="container-3d">
+            <h2 class="section-title-3d">Historia</h2>
+            
+            <div class="history-section-3d">
+                <h3 class="history-subtitle-3d">El Origen</h3>
+                <div class="history-content-3d">
+                    <p>Antes de que el nombre 42 BLOCK existiera, el barrio era solo un conjunto de edificios viejos, luces parpadeantes y calles donde la ciudad nunca miraba.</p>
+                    <p>Para el gobierno, ese sector era un punto gris en el mapa.</p>
+                    <p>Para quienes crecieron allí, era hogar, aunque nadie más lo quisiera.</p>
+                    <p class="highlight-3d">El edificio marcado con el número 42 era el centro del barrio. Deteriorado, agrietado, pero firme. Un refugio para quienes no tenían otro lugar. Y sería ahí, entre grietas y ecos, donde nacería la hermandad que cambiaría todo.</p>
+                </div>
+            </div>
+
+            <div class="history-section-3d">
+                <h3 class="history-subtitle-3d">Los Fundadores de 42 BLOCK</h3>
+                <div class="history-content-3d">
+                    <p>Tres jóvenes crecieron dentro del Bloque 42. Tres que lo perdieron todo antes de tener algo. Tres que se negaron a dejar que su hogar desapareciera.</p>
+                    <p class="founders-intro-3d">Sus nombres son ahora casi sagrados:</p>
+                    <ul class="founders-list-3d">
+                        <li><strong>Anthony Brown</strong></li>
+                        <li><strong>Deyont Slayter</strong></li>
+                        <li><strong>Bryan Connors</strong></li>
+                    </ul>
+                    <p class="founders-message-3d">Ellos no formaron una banda para causar miedo. Crearon una hermandad para que nadie volviera a sentirse solo como ellos se sintieron.</p>
+                </div>
+            </div>
+
+            <!-- Fundadores -->
+            <div class="founders-grid-3d">
+                <div class="founder-card-3d">
+                    <h3 class="founder-name-3d">Anthony "The Anchor" Brown</h3>
+                    <p class="founder-title-3d">El Ancla del Bloque</p>
+                    <div class="founder-description-3d">
+                        <p>Anthony era el corazón del barrio. No el más fuerte, pero sí el más firme. Quien mantenía la calma cuando todo se desmoronaba.</p>
+                        <p>Creció cuidando a su familia desde muy joven, aprendiendo a ser responsable antes de tiempo. Fue el que organizó a los vecinos cuando intentaron desalojarlos. El que convirtió la confusión en unión.</p>
+                        <p class="founder-quote-3d">Por eso, dentro del 42, lo llaman El Ancla: porque sin él, todo se habría hundido.</p>
+                    </div>
+                </div>
+
+                <div class="founder-card-3d">
+                    <h3 class="founder-name-3d">Deyont "Iron Hand" Slayter</h3>
+                    <p class="founder-title-3d">La Mano de Hierro</p>
+                    <div class="founder-description-3d">
+                        <p>Deyont era la fuerza silenciosa del bloque. La determinación hecha persona.</p>
+                        <p>Nunca buscó pelea, pero tampoco dio un paso atrás cuando quisieron borrar el edificio 42 para levantar una zona comercial. Él fue el primero en ponerse frente a las máquinas. El primero en decir "aquí no".</p>
+                        <p>Su respeto no vino del miedo, sino de su firmeza. Protegía lo suyo sin dudar, sin ruido, sin orgullo vacío.</p>
+                        <p class="founder-quote-3d">Por eso lo llamaron Iron Hand —La Mano de Hierro—, porque era quien defendía la raíz del barrio cuando nadie más lo hacía.</p>
+                    </div>
+                </div>
+
+                <div class="founder-card-3d">
+                    <h3 class="founder-name-3d">Bryan "Mindset" Connors</h3>
+                    <p class="founder-title-3d">El Pensador del Bloque</p>
+                    <div class="founder-description-3d">
+                        <p>Bryan fue el cerebro detrás del movimiento. El silencioso. El observador. El que analizaba cada calle, cada amenaza, cada decisión.</p>
+                        <p>Mientras otros reaccionaban, él planeaba. Dibujó rutas, organizó comunicaciones, anticipó problemas y convirtió al 42 en algo más que resistencia: lo transformó en estructura.</p>
+                        <p>Muchos lo subestimaban, hasta que un día entendieron que su mente era la pieza clave.</p>
+                        <p class="founder-quote-3d">Por eso lo apodaron Mindset: porque veía el barrio no como era, sino como podía llegar a ser.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Información Section -->
+    <section class="info" id="info">
+        <div class="container-3d">
+            <h2 class="section-title-3d">Información</h2>
+            
+            <div class="info-grid-3d">
+                <div class="info-card-3d">
+                    <div class="info-icon-3d">📅</div>
+                    <h3 class="info-title-3d">Horario Entre Semana</h3>
+                    <p class="info-value-3d" id="weekday-schedule">[Horario entre semana]</p>
+                </div>
+
+                <div class="info-card-3d">
+                    <div class="info-icon-3d">🎯</div>
+                    <h3 class="info-title-3d">Horario Fin de Semana</h3>
+                    <p class="info-value-3d" id="weekend-schedule">[Horario fin de semana]</p>
+                </div>
+            </div>
+
+            <div class="discord-section">
+                <h3 class="discord-section-title">IDs de Discord</h3>
+                <div class="discord-grid" id="discord-grid">
+                    <!-- Los IDs se agregarán dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-3d">
+        <div class="container-3d">
+            <p>&copy; 2024 42 BLOCK - Nacidos del Olvido. Todos los derechos reservados.</p>
+            <p class="developer-credit">Developer by <span class="krydev">KryDev</span></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -165,8 +165,63 @@ function loadDiscordIds() {
         discordCard.innerHTML = `
             <div class="discord-icon">💬</div>
             <p class="discord-id">${id}</p>
+            <button class="copy-btn" data-id="${id}">
+                <span class="copy-text">Copy</span>
+                <span class="copy-check" style="display: none;">✓</span>
+            </button>
         `;
         discordGrid.appendChild(discordCard);
+    });
+    
+    // Agregar event listeners a los botones de copiar
+    setupCopyButtons();
+}
+
+function setupCopyButtons() {
+    const copyButtons = document.querySelectorAll('.copy-btn');
+    
+    copyButtons.forEach(button => {
+        button.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            const id = button.getAttribute('data-id');
+            const copyText = button.querySelector('.copy-text');
+            const copyCheck = button.querySelector('.copy-check');
+            
+            try {
+                await navigator.clipboard.writeText(id);
+                
+                // Cambiar el texto del botón
+                copyText.style.display = 'none';
+                copyCheck.style.display = 'inline';
+                button.classList.add('copied');
+                
+                // Restaurar después de 2 segundos
+                setTimeout(() => {
+                    copyText.style.display = 'inline';
+                    copyCheck.style.display = 'none';
+                    button.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                console.error('Error al copiar:', err);
+                // Fallback para navegadores antiguos
+                const textArea = document.createElement('textarea');
+                textArea.value = id;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                copyText.style.display = 'none';
+                copyCheck.style.display = 'inline';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    copyText.style.display = 'inline';
+                    copyCheck.style.display = 'none';
+                    button.classList.remove('copied');
+                }, 2000);
+            }
+        });
     });
 }
 

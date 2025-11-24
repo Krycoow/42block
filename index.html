@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>42 BLOCK - Nacidos del Olvido</title>
+    <title>OBLOCK - Hermandad del Barrio</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,9 +14,9 @@
     <section class="hero">
         <div class="hero-3d-bg"></div>
         <div class="hero-content">
-            <h1 class="band-name-3d">42 BLOCK</h1>
-            <p class="tagline-3d">Nacidos del Olvido</p>
-            <div class="hero-subtitle-3d">El edificio marcado con el número 42 era el centro del barrio</div>
+            <h1 class="band-name-3d">OBLOCK</h1>
+            <p class="tagline-3d">Hermandad del Barrio</p>
+            <div class="hero-subtitle-3d">El edificio marcado con el número 0 era el centro del barrio. Los vecinos lo llamaban simplemente "la O"</div>
         </div>
         <div class="scroll-indicator-3d">
             <div class="scroll-arrow"></div>
@@ -28,13 +28,24 @@
         <div class="container-3d">
             <h2 class="section-title-3d">El Barrio</h2>
             <div class="neighborhood-content-3d" id="neighborhood-content">
-                <div class="neighborhood-card-3d neighborhood-image-card">
+                <div class="neighborhood-card-3d neighborhood-main-card">
                     <h3 class="neighborhood-title">Ubicación</h3>
-                    <div class="neighborhood-image-wrapper">
-                        <img src="image.png" alt="Vista del barrio 42 BLOCK" class="neighborhood-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div style="display:none; padding: 40px; text-align: center; color: var(--text-gray);">Imagen no encontrada. Verifica que el archivo 'image.png' esté en la carpeta.</div>
+                    <p class="neighborhood-text" id="neighborhood-location">Haz clic para ver los posibles barrios de OBLOCK</p>
+                    <button class="neighborhood-btn" id="show-barrios-btn">
+                        <span class="btn-icon">📍</span>
+                        <span class="btn-text">Ver Posibles Barrios</span>
+                    </button>
+                </div>
+                
+                <!-- Galería de Barrios (oculta inicialmente) -->
+                <div class="barrios-gallery" id="barrios-gallery" style="display: none;">
+                    <h3 class="gallery-title">Posibles Barrios</h3>
+                    <div class="gallery-grid" id="gallery-grid">
+                        <!-- Las imágenes se agregarán dinámicamente -->
                     </div>
-                    <p class="neighborhood-text" id="neighborhood-location">[Ubicación del barrio]</p>
+                    <button class="close-gallery-btn" id="close-gallery-btn">
+                        <span>Cerrar</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -56,26 +67,63 @@
             <h2 class="section-title-3d">Historia</h2>
             
             <div class="history-section-3d">
-                <h3 class="history-subtitle-3d">El Origen</h3>
+                <h3 class="history-subtitle-3d">El Origen – Antes de OBLOCK</h3>
                 <div class="history-content-3d">
-                    <p>Antes de que el nombre 42 BLOCK existiera, el barrio era solo un conjunto de edificios viejos, luces parpadeantes y calles donde la ciudad nunca miraba.</p>
-                    <p>Para el gobierno, ese sector era un punto gris en el mapa.</p>
-                    <p>Para quienes crecieron allí, era hogar, aunque nadie más lo quisiera.</p>
-                    <p class="highlight-3d">El edificio marcado con el número 42 era el centro del barrio. Deteriorado, agrietado, pero firme. Un refugio para quienes no tenían otro lugar. Y sería ahí, entre grietas y ecos, donde nacería la hermandad que cambiaría todo.</p>
+                    <p>Antes de que existiera OBLOCK, el barrio era solo un conjunto de edificios olvidados por la ciudad.</p>
+                    <p>Calles sin luz, esquinas silenciosas, gente que sobrevivía como podía mientras el resto del mundo miraba hacia otro lado.</p>
+                    <p>En el centro de ese olvido estaba el edificio marcado con un viejo número: <strong>0</strong>.</p>
+                    <p>Los vecinos lo llamaban simplemente <em>"la O"</em>.</p>
+                    <p>Desgastado, lleno de grietas, pero firme como una roca que se niega a caer.</p>
+                    <p class="highlight-3d">Ese edificio sería el nacimiento de una hermandad que cambiaría el rumbo del barrio.</p>
                 </div>
             </div>
 
             <div class="history-section-3d">
-                <h3 class="history-subtitle-3d">Los Fundadores de 42 BLOCK</h3>
+                <h3 class="history-subtitle-3d">Los Fundadores – Las Tres Columnas de la O</h3>
                 <div class="history-content-3d">
-                    <p>Tres jóvenes crecieron dentro del Bloque 42. Tres que lo perdieron todo antes de tener algo. Tres que se negaron a dejar que su hogar desapareciera.</p>
-                    <p class="founders-intro-3d">Sus nombres son ahora casi sagrados:</p>
+                    <p>Tres jóvenes crecieron juntos entre esos muros, tres que conocieron la caída desde pequeños y que se negaron a seguir viendo a su gente desaparecer.</p>
+                    <p class="founders-intro-3d">Sus nombres se volvieron leyenda:</p>
                     <ul class="founders-list-3d">
-                        <li><strong>Anthony Brown</strong></li>
-                        <li><strong>Deyont Slayter</strong></li>
-                        <li><strong>Bryan Connors</strong></li>
+                        <li><strong>Anthony "The Anchor" Brown</strong> – El Ancla de OBLOCK</li>
+                        <li><strong>Deyont "Iron Hand" Slayter</strong> – La Mano de Hierro</li>
+                        <li><strong>Bryan "Mindset" Connors</strong> – La Mente del Bloque</li>
                     </ul>
-                    <p class="founders-message-3d">Ellos no formaron una banda para causar miedo. Crearon una hermandad para que nadie volviera a sentirse solo como ellos se sintieron.</p>
+                    <p class="founders-message-3d">Juntos formaron la base de OBLOCK, cada uno con un rol natural: Anthony unía, Deyont protegía, Bryan guiaba.</p>
+                </div>
+            </div>
+
+            <div class="history-section-3d">
+                <h3 class="history-subtitle-3d">El Momento Que Cambió Todo – La Defensa de la O</h3>
+                <div class="history-content-3d">
+                    <p>La ciudad decidió destruir varios edificios del barrio para construir proyectos nuevos.</p>
+                    <p>Entre ellos estaba la O.</p>
+                    <p>Las familias del bloque se quedaron sin voz… hasta que los tres fundadores actuaron.</p>
+                    <p>Organizaron vecinos, bloquearon maquinaria, grabaron abusos, expusieron corrupción.</p>
+                    <p>Por primera vez en mucho tiempo, el barrio habló como una sola familia.</p>
+                    <p class="highlight-3d">Y ganó. La O no cayó. Y la gente comenzó a verlos como algo más grande.</p>
+                </div>
+            </div>
+
+            <div class="history-section-3d">
+                <h3 class="history-subtitle-3d">El Nacimiento de OBLOCK</h3>
+                <div class="history-content-3d">
+                    <p>La victoria marcó el inicio oficial: <strong>OBLOCK</strong>.</p>
+                    <p>No como una banda, sino como una hermandad organizada que protegía su territorio, sus familias y su identidad.</p>
+                    <p>Ese día nació el código que todavía guía al bloque:</p>
+                    <p class="highlight-3d"><strong>RESPETO. UNIDAD. LEALTAD. LA O SE CUIDA ENTRE LOS SUYOS.</strong></p>
+                    <p>OBLOCK se convirtió en comunidad, refugio y símbolo de resistencia.</p>
+                </div>
+            </div>
+
+            <div class="history-section-3d">
+                <h3 class="history-subtitle-3d">La Expansión de la O</h3>
+                <div class="history-content-3d">
+                    <p>Con los años, OBLOCK dejó de ser solo un edificio.</p>
+                    <p>Crearon espacios para alimentar familias, cuidar jóvenes, restaurar casas, pintar murales, organizar actividades para mantener la cultura viva.</p>
+                    <p>La O dejó de ser un lugar abandonado para convertirse en <strong>un territorio que se respeta</strong>.</p>
+                    <p>Los colores, las paredes, los murales… todo comenzó a contar la historia del barrio y de la hermandad.</p>
+                    <p>Generación tras generación, OBLOCK creció sin olvidar lo más importante:</p>
+                    <p class="highlight-3d"><strong>Aquí nadie lucha solo.</strong></p>
                 </div>
             </div>
 
@@ -83,11 +131,12 @@
             <div class="founders-grid-3d">
                 <div class="founder-card-3d">
                     <h3 class="founder-name-3d">Anthony "The Anchor" Brown</h3>
-                    <p class="founder-title-3d">El Ancla del Bloque</p>
+                    <p class="founder-title-3d">El Ancla de OBLOCK</p>
                     <div class="founder-description-3d">
-                        <p>Anthony era el corazón del barrio. No el más fuerte, pero sí el más firme. Quien mantenía la calma cuando todo se desmoronaba.</p>
-                        <p>Creció cuidando a su familia desde muy joven, aprendiendo a ser responsable antes de tiempo. Fue el que organizó a los vecinos cuando intentaron desalojarlos. El que convirtió la confusión en unión.</p>
-                        <p class="founder-quote-3d">Por eso, dentro del 42, lo llaman El Ancla: porque sin él, todo se habría hundido.</p>
+                        <p>El calmado, el que unía a todos.</p>
+                        <p>Tenía la capacidad de apagar incendios con palabras y mantener la comunidad estable incluso en sus peores momentos.</p>
+                        <p>Sin él, la O nunca habría tenido identidad.</p>
+                        <p class="founder-quote-3d">Por eso, dentro de OBLOCK, lo llaman El Ancla: porque sin él, todo se habría hundido.</p>
                     </div>
                 </div>
 
@@ -95,21 +144,64 @@
                     <h3 class="founder-name-3d">Deyont "Iron Hand" Slayter</h3>
                     <p class="founder-title-3d">La Mano de Hierro</p>
                     <div class="founder-description-3d">
-                        <p>Deyont era la fuerza silenciosa del bloque. La determinación hecha persona.</p>
-                        <p>Nunca buscó pelea, pero tampoco dio un paso atrás cuando quisieron borrar el edificio 42 para levantar una zona comercial. Él fue el primero en ponerse frente a las máquinas. El primero en decir "aquí no".</p>
-                        <p>Su respeto no vino del miedo, sino de su firmeza. Protegía lo suyo sin dudar, sin ruido, sin orgullo vacío.</p>
+                        <p>El protector.</p>
+                        <p>No buscaba problemas, pero jamás permitía que la gente de la O fuera ignorada o maltratada.</p>
+                        <p>Fue el primero en ponerse de pie cuando la ciudad quiso demoler el edificio O.</p>
                         <p class="founder-quote-3d">Por eso lo llamaron Iron Hand —La Mano de Hierro—, porque era quien defendía la raíz del barrio cuando nadie más lo hacía.</p>
                     </div>
                 </div>
 
                 <div class="founder-card-3d">
                     <h3 class="founder-name-3d">Bryan "Mindset" Connors</h3>
-                    <p class="founder-title-3d">El Pensador del Bloque</p>
+                    <p class="founder-title-3d">La Mente del Bloque</p>
                     <div class="founder-description-3d">
-                        <p>Bryan fue el cerebro detrás del movimiento. El silencioso. El observador. El que analizaba cada calle, cada amenaza, cada decisión.</p>
-                        <p>Mientras otros reaccionaban, él planeaba. Dibujó rutas, organizó comunicaciones, anticipó problemas y convirtió al 42 en algo más que resistencia: lo transformó en estructura.</p>
-                        <p>Muchos lo subestimaban, hasta que un día entendieron que su mente era la pieza clave.</p>
+                        <p>El estratega.</p>
+                        <p>Quieto, observador, inteligente.</p>
+                        <p>Bryan fue quien convirtió un grupo desesperado en una organización real.</p>
+                        <p>Vio rutas, riesgos, alianzas, necesidades… antes que cualquiera.</p>
                         <p class="founder-quote-3d">Por eso lo apodaron Mindset: porque veía el barrio no como era, sino como podía llegar a ser.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lore Section -->
+    <section class="lore" id="lore">
+        <div class="container-3d">
+            <h2 class="section-title-3d">Lore de OBLOCK</h2>
+            
+            <div class="history-section-3d">
+                <h3 class="history-subtitle-3d">La Identidad de OBLOCK</h3>
+                <div class="history-content-3d">
+                    <p>OBLOCK representa:</p>
+                    
+                    <div class="lore-grid">
+                        <div class="lore-item">
+                            <h4 class="lore-title">Memoria</h4>
+                            <p>Nunca olvidan de dónde vienen ni las luchas que los formaron.</p>
+                        </div>
+                        
+                        <div class="lore-item">
+                            <h4 class="lore-title">Hermandad</h4>
+                            <p>Dentro de la O no hay extraños; hay familia.</p>
+                        </div>
+                        
+                        <div class="lore-item">
+                            <h4 class="lore-title">Territorio</h4>
+                            <p>No por control, sino por protección: la O protege a quienes viven en su espacio.</p>
+                        </div>
+                        
+                        <div class="lore-item">
+                            <h4 class="lore-title">Código</h4>
+                            <p>Las reglas no están escritas, pero todos las conocen:</p>
+                            <ul class="code-list">
+                                <li>La palabra pesa.</li>
+                                <li>El respeto no se negocia.</li>
+                                <li>La familia se cuida.</li>
+                                <li>La unidad es poder.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -147,7 +239,7 @@
     <!-- Footer -->
     <footer class="footer-3d">
         <div class="container-3d">
-            <p>&copy; 2024 42 BLOCK - Nacidos del Olvido. Todos los derechos reservados.</p>
+            <p>&copy; 2024 OBLOCK - Hermandad del Barrio. Todos los derechos reservados.</p>
             <p class="developer-credit">Developer by <span class="krydev">KryDev</span></p>
         </div>
     </footer>

@@ -9,7 +9,8 @@ const blockData = {
         "1216781228624318617",
         "800211811130933271",
         "1049740764361539644",
-        "NUEVO_ID_AQUI"
+        "771708899598008370",
+        "325188874049425453"
     ],
     weekdaySchedule: "Lunes a Viernes: 21:00 - 02:00",
     weekendSchedule: "Sábados y Domingos: 15:00 - 03:00",
@@ -52,52 +53,79 @@ const blockData = {
 
 // Cargar información cuando la página esté lista
 document.addEventListener('DOMContentLoaded', function() {
-    loadInfo();
-    loadNeighborhood();
-    loadRanks();
-    loadDiscordIds();
-    setup3DEffects();
+    try {
+        loadInfo();
+        loadNeighborhood();
+        loadRanks();
+        loadDiscordIds();
+        setup3DEffects();
+        createAdvancedParticles();
+        setupMouseTracking();
+    } catch (error) {
+        console.error('Error al cargar la página:', error);
+    }
 });
 
-// Efectos 3D BRUTALES y dramáticos
+// Efectos 3D avanzados e interactivos
 function setup3DEffects() {
-    const heroContent = document.querySelector('.hero-content');
-    const cards = document.querySelectorAll('.neighborhood-card-3d, .rank-card-3d, .founder-card-3d, .info-card-3d, .discord-card, .lore-item');
-    const sectionTitles = document.querySelectorAll('.section-title-3d');
-    
-    // Efecto 3D BRUTAL en hero con mouse - más pronunciado
-    if (heroContent) {
-        let mouseX = 0;
-        let mouseY = 0;
-        let currentX = 0;
-        let currentY = 0;
-        
-        document.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-        });
-        
-        function animateHero() {
-            currentX += (mouseX - currentX) * 0.15;
-            currentY += (mouseY - currentY) * 0.15;
-            
-            heroContent.style.transform = `
-                translateZ(0)
-                rotateX(${currentY * 12}deg)
-                rotateY(${currentX * 12}deg)
-                perspective(1000px)
-            `;
-            
-            requestAnimationFrame(animateHero);
+    // Parallax 3D mejorado
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                try {
+                    const scrolled = window.pageYOffset || window.scrollY || 0;
+                    const hero = document.querySelector('.hero');
+                    const sections = document.querySelectorAll('section');
+                    
+                    if (hero) {
+                        const parallax = scrolled * 0.4;
+                        hero.style.transform = `translateY(${parallax}px) translateZ(${-parallax * 0.3}px)`;
+                    }
+                    
+                    sections.forEach((section, index) => {
+                        if (section) {
+                            const speed = 0.1 + (index * 0.05);
+                            const yPos = scrolled * speed;
+                            section.style.transform = `translateZ(${-yPos * 0.2}px)`;
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error en parallax:', error);
+                }
+                
+                ticking = false;
+            });
+            ticking = true;
         }
-        
-        animateHero();
-    }
+    });
     
-    // Efecto 3D BRUTAL en títulos de sección
-    sectionTitles.forEach(title => {
-        title.addEventListener('mousemove', (e) => {
-            const rect = title.getBoundingClientRect();
+    // Intersection Observer mejorado
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0) translateZ(0) rotateX(0deg)';
+                entry.target.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
+            }
+        });
+    }, observerOptions);
+    
+    document.querySelectorAll('.history-section-3d, .neighborhood-card-3d, .rank-card-3d, .founder-card-3d, .info-card-3d, .discord-card, .lore-item, .barrio-image-card').forEach(el => {
+        observer.observe(el);
+    });
+    
+    // Efectos 3D en hover para cards
+    const cards = document.querySelectorAll('.rank-card-3d, .founder-card-3d, .info-card-3d, .discord-card, .lore-item, .neighborhood-card-3d');
+    
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
@@ -107,215 +135,191 @@ function setup3DEffects() {
             const rotateX = (y - centerY) / 20;
             const rotateY = (centerX - x) / 20;
             
-            title.style.transform = `
-                translateZ(30px)
-                rotateX(${-rotateX}deg)
-                rotateY(${rotateY}deg)
-                scale(1.05)
+            card.style.transform = `
+                translateY(-15px) 
+                translateZ(50px) 
+                rotateX(${-rotateX}deg) 
+                rotateY(${rotateY}deg) 
+                scale(1.02)
             `;
         });
         
-        title.addEventListener('mouseleave', () => {
-            title.style.transform = '';
-        });
-    });
-    
-    // Efecto 3D BRUTAL en tarjetas con mouse - más dramático
-    cards.forEach(card => {
-        let cardMouseX = 0;
-        let cardMouseY = 0;
-        let cardCurrentX = 0;
-        let cardCurrentY = 0;
-        
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            cardMouseX = (x - centerX) / centerX;
-            cardMouseY = (y - centerY) / centerY;
-        });
-        
-        function animateCard() {
-            cardCurrentX += (cardMouseX - cardCurrentX) * 0.2;
-            cardCurrentY += (cardMouseY - cardCurrentY) * 0.2;
-            
-            const rotateX = cardCurrentY * 15;
-            const rotateY = cardCurrentX * 15;
-            
-            if (Math.abs(cardMouseX) > 0.01 || Math.abs(cardMouseY) > 0.01) {
-                card.style.transform = `
-                    translateY(-20px)
-                    translateZ(60px)
-                    rotateX(${-rotateX}deg)
-                    rotateY(${rotateY}deg)
-                    scale(1.03)
-                    perspective(1000px)
-                `;
-            }
-            
-            requestAnimationFrame(animateCard);
-        }
-        
-        animateCard();
-        
         card.addEventListener('mouseleave', () => {
-            cardMouseX = 0;
-            cardMouseY = 0;
-            setTimeout(() => {
-                card.style.transform = '';
-            }, 300);
+            card.style.transform = '';
         });
     });
-    
-    // Efecto 3D BRUTAL en la imagen del barrio
-    const imageWrapper = document.querySelector('.neighborhood-image-wrapper');
-    if (imageWrapper) {
-        let imgMouseX = 0;
-        let imgMouseY = 0;
-        let imgCurrentX = 0;
-        let imgCurrentY = 0;
-        
-        imageWrapper.addEventListener('mousemove', (e) => {
-            const rect = imageWrapper.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            imgMouseX = (x - centerX) / centerX;
-            imgMouseY = (y - centerY) / centerY;
-        });
-        
-        function animateImage() {
-            imgCurrentX += (imgMouseX - imgCurrentX) * 0.15;
-            imgCurrentY += (imgMouseY - imgCurrentY) * 0.15;
-            
-            const rotateX = imgCurrentY * 12;
-            const rotateY = imgCurrentX * 12;
-            
-            if (Math.abs(imgMouseX) > 0.01 || Math.abs(imgMouseY) > 0.01) {
-                imageWrapper.style.transform = `
-                    translateY(-15px)
-                    translateZ(60px)
-                    rotateX(${-rotateX}deg)
-                    rotateY(${rotateY}deg)
-                    scale(1.03)
-                    perspective(1000px)
-                `;
-            }
-            
-            requestAnimationFrame(animateImage);
-        }
-        
-        animateImage();
-        
-        imageWrapper.addEventListener('mouseleave', () => {
-            imgMouseX = 0;
-            imgMouseY = 0;
-            setTimeout(() => {
-                imageWrapper.style.transform = '';
-            }, 300);
-        });
-    }
-    
-    // Parallax BRUTAL en scroll
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                const scrolled = window.pageYOffset;
-                const hero = document.querySelector('.hero');
-                const sections = document.querySelectorAll('section');
-                
-                if (hero) {
-                    hero.style.transform = `translateY(${scrolled * 0.5}px) translateZ(${-scrolled * 0.3}px)`;
-                }
-                
-                sections.forEach((section, index) => {
-                    const speed = 0.1 + (index * 0.05);
-                    const yPos = scrolled * speed;
-                    section.style.transform = `translateZ(${-yPos * 0.2}px)`;
-                });
-                
-                ticking = false;
-            });
-            ticking = true;
-        }
-    });
-    
-    // Intersection Observer mejorado para animaciones
-    const observerOptions = {
-        threshold: 0.15,
-        rootMargin: '0px 0px -150px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0) translateZ(0) rotateX(0deg)';
-                entry.target.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-            }
-        });
-    }, observerOptions);
-    
-    // Observar todas las secciones y elementos
-    document.querySelectorAll('.history-section-3d, .neighborhood-card-3d, .rank-card-3d, .founder-card-3d, .info-card-3d, .discord-card, .lore-item, .section-title-3d').forEach(el => {
-        observer.observe(el);
-    });
-    
-    // Efecto de partículas en el fondo (simulado con elementos)
-    createParticleEffect();
 }
 
-// Crear efecto de partículas flotantes
-function createParticleEffect() {
+// Seguimiento del mouse para efectos 3D
+function setupMouseTracking() {
+    const heroContent = document.querySelector('.hero-content');
+    if (!heroContent) return;
+    
+    let mouseX = 0;
+    let mouseY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    });
+    
+    function animate() {
+        currentX += (mouseX - currentX) * 0.1;
+        currentY += (mouseY - currentY) * 0.1;
+        
+        heroContent.style.transform = `
+            translateZ(0)
+            rotateX(${currentY * 8}deg)
+            rotateY(${currentX * 8}deg)
+        `;
+        
+        requestAnimationFrame(animate);
+    }
+    
+    animate();
+}
+
+// Partículas avanzadas con movimiento 3D - Azul marino
+function createAdvancedParticles() {
     const hero = document.querySelector('.hero');
     if (!hero) return;
     
-    for (let i = 0; i < 20; i++) {
+    try {
+        // Crear más partículas con diferentes tamaños y velocidades - colores azul marino
+        for (let i = 0; i < 60; i++) {
         const particle = document.createElement('div');
-        particle.style.position = 'absolute';
-        particle.style.width = Math.random() * 4 + 2 + 'px';
-        particle.style.height = particle.style.width;
-        particle.style.background = `rgba(255, 0, 0, ${Math.random() * 0.5 + 0.2})`;
-        particle.style.borderRadius = '50%';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.pointerEvents = 'none';
-        particle.style.boxShadow = `0 0 ${Math.random() * 20 + 10}px rgba(255, 0, 0, 0.6)`;
-        particle.style.animation = `particleFloat ${Math.random() * 10 + 10}s ease-in-out infinite`;
-        particle.style.animationDelay = Math.random() * 5 + 's';
-        particle.style.zIndex = '1';
-        hero.appendChild(particle);
+        const size = Math.random() * 8 + 4;
+        // Colores azul marino variados
+        const colorType = Math.random();
+        let r, g, b;
+        if (colorType < 0.3) {
+            r = 0; g = 31; b = 63; // Navy dark
+        } else if (colorType < 0.6) {
+            r = 0; g = 51; b = 102; // Navy bright
+        } else if (colorType < 0.8) {
+            r = 0; g = 34; b = 68; // Navy medium
+        } else {
+            r = 0; g = 64; b = 128; // Navy light
+        }
+        const alpha = Math.random() * 0.5 + 0.4;
+        const duration = Math.random() * 25 + 18;
+        const delay = Math.random() * 6;
+        
+        particle.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            background: radial-gradient(circle, rgba(${r}, ${g}, ${b}, ${alpha}) 0%, rgba(${r}, ${g}, ${b}, 0) 70%);
+            border-radius: 50%;
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            pointer-events: none;
+            box-shadow: 
+                0 0 ${size * 4}px rgba(${r}, ${g}, ${b}, 0.9),
+                0 0 ${size * 8}px rgba(${r}, ${g}, ${b}, 0.5),
+                0 0 ${size * 12}px rgba(${r}, ${g}, ${b}, 0.3);
+            animation: particleFloat3D ${duration}s ease-in-out infinite;
+            animation-delay: ${delay}s;
+            z-index: 1;
+        `;
+        
+            hero.appendChild(particle);
+        }
+    } catch (error) {
+        console.error('Error al crear partículas:', error);
+        return;
     }
     
-    // Agregar keyframes para partículas
+    // Agregar keyframes dinámicos
     if (!document.getElementById('particle-styles')) {
         const style = document.createElement('style');
         style.id = 'particle-styles';
         style.textContent = `
-            @keyframes particleFloat {
+            @keyframes particleFloat3D {
                 0%, 100% {
-                    transform: translate(0, 0) translateZ(0);
-                    opacity: 0.3;
-                }
-                25% {
-                    transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) translateZ(${Math.random() * 50}px);
-                    opacity: 0.6;
-                }
-                50% {
-                    transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) translateZ(${Math.random() * 50}px);
+                    transform: translate(0, 0) translateZ(0) scale(1);
                     opacity: 0.4;
                 }
+                25% {
+                    transform: translate(50px, -50px) translateZ(30px) scale(0.9);
+                    opacity: 0.8;
+                }
+                50% {
+                    transform: translate(-50px, 50px) translateZ(60px) scale(1.1);
+                    opacity: 0.5;
+                }
                 75% {
-                    transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) translateZ(${Math.random() * 50}px);
-                    opacity: 0.7;
+                    transform: translate(30px, 30px) translateZ(40px) scale(0.95);
+                    opacity: 0.9;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // Añadir partículas que siguen el mouse
+    let mouseParticleCount = 0;
+    document.addEventListener('mousemove', (e) => {
+        if (Math.random() > 0.95 && mouseParticleCount < 5) { // Crear partícula ocasionalmente, máximo 5
+            mouseParticleCount++;
+            createMouseParticle(e.clientX, e.clientY);
+            setTimeout(() => {
+                mouseParticleCount--;
+            }, 1000);
+        }
+    });
+}
+
+// Crear partícula que sigue el mouse - Azul marino
+function createMouseParticle(x, y) {
+    const particle = document.createElement('div');
+    const size = Math.random() * 5 + 3;
+    // Colores azul marino
+    const colorType = Math.random();
+    let r, g, b;
+    if (colorType < 0.5) {
+        r = 0; g = 51; b = 102; // Navy bright
+    } else {
+        r = 0; g = 34; b = 68; // Navy medium
+    }
+    
+    particle.style.cssText = `
+        position: fixed;
+        width: ${size}px;
+        height: ${size}px;
+        background: radial-gradient(circle, rgba(${r}, ${g}, ${b}, 0.9) 0%, rgba(${r}, ${g}, ${b}, 0) 70%);
+        border-radius: 50%;
+        left: ${x}px;
+        top: ${y}px;
+        pointer-events: none;
+        box-shadow: 
+            0 0 ${size * 6}px rgba(${r}, ${g}, ${b}, 1),
+            0 0 ${size * 12}px rgba(${r}, ${g}, ${b}, 0.6);
+        z-index: 9999;
+        animation: mouseParticleFade 1.2s ease-out forwards;
+    `;
+    
+    document.body.appendChild(particle);
+    
+    setTimeout(() => {
+        particle.remove();
+    }, 1200);
+    
+    // Agregar keyframe si no existe
+    if (!document.getElementById('mouse-particle-styles')) {
+        const style = document.createElement('style');
+        style.id = 'mouse-particle-styles';
+        style.textContent = `
+            @keyframes mouseParticleFade {
+                0% {
+                    opacity: 1;
+                    transform: scale(1) translate(0, 0);
+                }
+                100% {
+                    opacity: 0;
+                    transform: scale(0) translate(30px, -30px);
                 }
             }
         `;
@@ -357,7 +361,6 @@ function loadDiscordIds() {
         discordGrid.appendChild(discordCard);
     });
     
-    // Agregar event listeners a los botones de copiar
     setupCopyButtons();
 }
 
@@ -372,19 +375,16 @@ function setupCopyButtons() {
             try {
                 await navigator.clipboard.writeText(id);
                 
-                // Cambiar el texto del botón temporalmente
                 const copyText = button.querySelector('.copy-text');
                 const originalText = copyText.textContent;
                 copyText.textContent = '¡Copiado!';
                 button.classList.add('copied');
                 
-                // Restaurar el texto después de 2 segundos
                 setTimeout(() => {
                     copyText.textContent = originalText;
                     button.classList.remove('copied');
                 }, 2000);
             } catch (err) {
-                // Fallback para navegadores que no soportan clipboard API
                 const textArea = document.createElement('textarea');
                 textArea.value = id;
                 textArea.style.position = 'fixed';
@@ -425,7 +425,6 @@ function loadNeighborhood() {
         descriptionElement.textContent = blockData.neighborhood.description;
     }
     
-    // Configurar botón para mostrar galería
     setupBarriosGallery();
 }
 
@@ -437,18 +436,15 @@ function setupBarriosGallery() {
     
     if (!showBtn || !gallery || !galleryGrid) return;
     
-    // Mostrar galería
     showBtn.addEventListener('click', () => {
         gallery.style.display = 'block';
         loadBarriosImages();
         
-        // Scroll suave a la galería
         setTimeout(() => {
             gallery.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 100);
     });
     
-    // Cerrar galería
     if (closeBtn) {
         closeBtn.addEventListener('click', () => {
             gallery.style.display = 'none';
@@ -460,7 +456,6 @@ function loadBarriosImages() {
     const galleryGrid = document.getElementById('gallery-grid');
     if (!galleryGrid) return;
     
-    // Limpiar galería
     galleryGrid.innerHTML = '';
     
     const barrios = blockData.neighborhood.barrios;
@@ -474,7 +469,6 @@ function loadBarriosImages() {
         return;
     }
     
-    // Crear cards para cada imagen
     barrios.forEach((imagePath, index) => {
         const imageCard = document.createElement('div');
         imageCard.className = 'barrio-image-card';
@@ -482,7 +476,7 @@ function loadBarriosImages() {
         imageCard.innerHTML = `
             <div class="barrio-image-wrapper">
                 <img src="${imagePath}" alt="Barrio ${index + 1} de OBLOCK" class="barrio-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <div class="image-error" style="display:none; padding: 40px; text-align: center; color: var(--text-gray);">
+                <div class="image-error" style="display:none; padding: 40px; text-align: center; color: var(--text-dim);">
                     Imagen no encontrada: ${imagePath}
                 </div>
             </div>
@@ -498,7 +492,7 @@ function loadRanks() {
     ranksGrid.innerHTML = '';
     
     if (blockData.ranks.length === 0) {
-        ranksGrid.innerHTML = '<p style="text-align: center; color: var(--text-gray); grid-column: 1 / -1;">[Los rangos se agregarán aquí]</p>';
+        ranksGrid.innerHTML = '<p style="text-align: center; color: var(--text-dim); grid-column: 1 / -1;">[Los rangos se agregarán aquí]</p>';
         return;
     }
     
